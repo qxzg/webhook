@@ -10,9 +10,3 @@ updates:
     schedule:
       timezone: "Asia/Shanghai"
       interval: "daily"
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      timezone: "Asia/Shanghai"
-      interval: "daily"
