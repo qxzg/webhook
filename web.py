@@ -5,19 +5,19 @@ from aliyunsdkcore.acs_exception.exceptions import ClientException
 from aliyunsdkcore.acs_exception.exceptions import ServerException
 from aliyunsdkrds.request.v20140815.ModifySecurityIpsRequest import ModifySecurityIpsRequest
 import logging
+import config
 
 app = Flask(__name__)
-
 
 logging.basicConfig(level=logging.DEBUG, filename="log/stdout.log", filemode="a")
 
 def set_rds_security_ips(security_ips):
-    client = AcsClient(AccessKey_ID, AccessKey_Secret, 'cn-beijing')
+    client = AcsClient(config.AccessKey_ID, config.AccessKey_Secret, config.Rds_Region)
 
     request = ModifySecurityIpsRequest()
     request.set_accept_format('json')
 
-    request.set_DBInstanceId(Rds_ID)
+    request.set_DBInstanceId(config.Rds_ID)
     request.set_SecurityIps(security_ips)
     request.set_DBInstanceIPArrayName("outside")
 
@@ -31,7 +31,7 @@ def post_data():
     post_data = request.json
     logging.info(post_data['msgTYPE'])
     try:
-        if request.headers['X-Token'] != Token:
+        if request.headers['X-Token'] != config.Token:
             logging.error("token认证无效")
             return "token认证无效", 401
     except:
