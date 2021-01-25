@@ -7,10 +7,7 @@ from aliyunsdkrds.request.v20140815.ModifySecurityIpsRequest import ModifySecuri
 import logging
 
 app = Flask(__name__)
-Token = ''
-AccessKey_ID = ""
-AccessKey_Secret = ""
-Rds_ID = "rm-"
+
 
 logging.basicConfig(level=logging.DEBUG, filename="log/stdout.log", filemode="a")
 
