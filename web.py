@@ -37,7 +37,13 @@ def post_data():
             return "token认证无效", 401
     except:
         return "请求失败", 401
-    wan_ip = post_data['netSTATE']['wanIPv4']
+    if post_data['msgTYPE'] == "ifUP":
+        wan_ip = post_data['netSTATE'][0]['pubIPv4']
+    elif post_data['msgTYPE'] == "manuINFO" or post_data['msgTYPE'] == "cronINFO":
+        wan_ip = post_data['netINFO']['WAN'][0]['pubIPv4']
+    else:
+        logging.error("IP更新失败")
+        return "IP更新失败", 401
     set_rds_security_ips(wan_ip)
     return jsonify({"status": 200})
 
